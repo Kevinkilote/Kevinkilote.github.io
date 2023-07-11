@@ -12,6 +12,7 @@ body{
 }
 .container{
     position: relative;
+    align-items: center;
     max-width: 320px;
     width: 100%;
     margin: 80px auto 30px;

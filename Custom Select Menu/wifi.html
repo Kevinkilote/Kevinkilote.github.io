@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cafe List</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="https://demo.plantpot.works/assets/css/normalize.css">
+  <link rel="stylesheet" href="https://use.typekit.net/opg3wle.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <h1>Cafe List</h1>
+  <ul>
+    <li>
+      <div class="cafe-image" style="background-image: url('starbucks.jpg');"></div>
+      <div class="cafe-details">
+        <div id="container">
+          <div class="heart-like-button"></div>
+        </div>
+        <h2>Starbucks</h2>
+        <p>Description: This is a cozy cafe with a rustic atmosphere, serving a variety of hot and cold beverages.</p>
+        <p class="keywords">Keywords: cozy, rustic, beverages</p>
+        <p class="availability">Availability: Yes</p>
+        <a href="starbucks.html" class="visit-button">Visit</a>
+      </div>
+      <div class="right-blank-image" style="background-image: url('kyotosando.jpg');"></div>
+      <div class="right-blank-image" style="background-image: url('kyotosando1.jpg');"></div>
+
+    </li>
+    <li>
+      <div class="cafe-image" style="background-image: url('cafe2.jpg');"></div>
+      <div class="cafe-details">
+        <div id="container">
+          <div class="heart-like-button"></div>
+        </div>
+        <h2>Cafe 2</h2>
+        <p>Description: A modern cafe with a minimalist design, offering a wide selection of specialty coffees and pastries.</p>
+        <p class="keywords">Keywords: modern, minimalist, specialty coffees, pastries</p>
+        <p class="availability">Availability: No</p>
+        <a href="cafe2.html" class="visit-button">Visit</a>
+      </div>
+      <div class="right-blank-image" style="background-image: url('kyotosando.jpg');"></div>
+      <div class="right-blank-image" style="background-image: url('kyotosando1.jpg');"></div>    </li>
+    <li>
+      <div class="cafe-image" style="background-image: url('cafe3.jpg');"></div>
+      <div class="cafe-details">
+        <div id="container">
+          <div class="heart-like-button"></div>
+        </div>
+        <h2>Cafe 3</h2>
+        <p>Description: This cafe is known for its relaxed atmosphere and homemade desserts. Perfect for a sweet indulgence.</p>
+        <p class="keywords">Keywords: relaxed, homemade desserts</p>
+        <p class="availability">Availability: Yes</p>
+        <a href="cafe3.html" class="visit-button">Visit</a>
+      </div>
+<div class="right-blank-image" style="background-image: url('kyotosando.jpg');"></div>
+      <div class="right-blank-image" style="background-image: url('kyotosando1.jpg');"></div>    </li>
+  </ul>
+  <script>
+  const button = document.querySelector(".heart-like-button");
+
+    button.addEventListener("click", () => {
+      if (button.classList.contains("liked")) {
+        button.classList.remove("liked");
+      } else {
+        button.classList.add("liked");
+      }
+    });</script>
+</body>
+</html>

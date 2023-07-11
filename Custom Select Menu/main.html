@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Travel Advisor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    nav {
+      background-color: #f5f5f5;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    section {
+      position: relative;
+      padding: 40px 10px;
+      text-align: center;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0.5;
+    }
+    
+    h1 {
+      color: #333;
+    }
+    
+    .highlight {
+      background-color: #f9f9f9;
+    }
+    
+    footer {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Travel Advisor</h1>
+    <p>Your ultimate travel companion</p>
+  </header>
+  
+  <nav>
+    <a href="#top-destinations">Top Destinations</a>
+    <a href="#hotels">Hotels</a>
+    <a href="#restaurants">Restaurants</a>
+    <a href="#activities">Activities</a>
+  </nav>
+  
+  <section id="top-destinations" style="background-image: url('cafebg.png');">
+    <div class="overlay"></div>
+    <h2>Top Destinations</h2>
+    <p>Discover the most popular travel destinations.</p>
+  </section>
+  
+  <section id="hotels" class="highlight" style="background-image: url('kyotosando1.jpg');">
+    <h2>Hotels</h2>
+    <p>Find the perfect accommodation for your trip.</p>
+  </section>
+  
+  <section id="restaurants" style="background-image: url('path/to/restaurants-image.jpg');">
+    <h2>Restaurants</h2>
+    <p>Explore the finest dining options.</p>
+  </section>
+  
+  <section id="activities" class="highlight" style="background-image: url('path/to/activities-image.jpg');">
+    <h2>Activities</h2>
+    <p>Embark on exciting adventures.</p>
+  </section>
+  
+  <footer>
+    <p>&copy; 2023 Travel Advisor. All rights reserved.</p>
+  </footer>
+</body>
+</html>
