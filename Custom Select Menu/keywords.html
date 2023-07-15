@@ -14,6 +14,7 @@
         
     </head>
     <body>
+      <h1>Search a Cafe now!</h1>
         <div class="container">
             <div class="select-btn">
                 <span class="btn-text">Select Keywords</span>
@@ -64,182 +65,63 @@
                     <span class="item-text">Able to Study</span>
                 </li>
             </ul>
+            <br>
+            <div class="autocomplete">
+              <input type="text" id="myInput" placeholder="Search for coffee...">
+              <div id="myDropdown" class="autocomplete-items"></div>
+            </div>
+          
+            <div class="button-container">
+              <button id="goButton" class="nav-button" disabled>Go</button>
+            </div>
         </div>
-
+        
+        
         <!-- JavaScript -->
         <script src="js/script.js"></script>
+        <ul>
+          <h1>Favorites List</h1>
+          <li>
+            <div class="cafe-image" style="background-image: url('starbucks.jpg');"></div>
+            <div class="cafe-details">
+              <div id="container">
+              </div>
+              <h2>Starbucks Kyoto Sando Tower </h2>
+              <p>Description: This is a cozy cafe with a rustic atmosphere, serving a variety of hot and cold beverages.</p>
+              <p class="keywords">Keywords: Wi-Fi, Popular, Charging Sockets, Able to Study, Sofa, Peaceful</p>
+              <p class="availability">Open: Yes <br> Max Stay Time: 3 Hours (Weekends) </p>
+              <a href="starbucks.html" class="visit-button">Visit</a>
+            </div>
+            <div class="right-blank-image" style="background-image: url('kyotosando.jpg');"></div>
+            <div class="right-blank-image" style="background-image: url('kyotosando1.jpg');"></div>
+      
+          </li>
+          <li>
+            <div class="cafe-image" style="background-image: url('ogawa.png');"></div>
+            <div class="cafe-details">
+              <div id="container">
+              </div>
+              <h2>Ogawa Coffee Kyoto Station Central Gate </h2>
+              <p>Description: A modern cafe with a minimalist design, offering a wide selection of specialty coffees and pastries.</p>
+              <p class="keywords">Keywords: Wi-Fi, Sofa, Peaceful, desserts</p>
+              <p class="availability">Open: Yes <br> Max Stay Time: 3 Hours (Weekends) </p>
+              <a href="ogawa.html" class="visit-button">Visit</a>
+            </div>
+            <div class="right-blank-image" style="background-image: url('ogawa.jpeg');"></div>
+            <div class="right-blank-image" style="background-image: url('ogawa1.jpeg');"></div>    </li>
+          <li>
+            <div class="cafe-image" style="background-image: url('hoshinologo.jpeg');"></div>
+            <div class="cafe-details">
+              <div id="container">
+              </div>
+              <h2>Hoshino Coffee Kyoto Fushimi </h2>
+              <p>Description: This cafe is known for its relaxed atmosphere and homemade desserts. Perfect for a sweet indulgence.</p>
+              <p class="keywords">Keywords: relaxed, homemade desserts</p>
+              <p class="availability">Open: Yes <br> Max Stay Time: 2 Hours </p>
+              <a href="hoshino.html" class="visit-button">Visit</a>
+            </div>
+      <div class="right-blank-image" style="background-image: url('hoshino.jpeg');"></div>
+            <div class="right-blank-image" style="background-image: url('hoshino1.jpeg');"></div>    </li>
+        </ul>
     </body>
-</html>
-
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Autocomplete Search Bar</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      position: relative;
-    align-items: center;
-    max-width: 320px;
-    width: 100%;
-    margin: 80px auto 30px;
-      
-    }
-    
-    .autocomplete {
-      position: relative;
-      display: inline-block;
-      
-      
-    }
-    
-    input[type="text"] {
-      width: 300px;
-      padding: 10px;
-      font-size: 16px;
-    }
-    
-    .autocomplete-items {
-      position: absolute;
-      border: 1px solid #ddd;
-      border-top: none;
-      z-index: 99;
-      top: 100%;
-      left: 0;
-      right: 0;
-    }
-    
-    .autocomplete-items div {
-      padding: 10px;
-      cursor: pointer;
-      background-color: #f9f9f9;
-      border-bottom: 1px solid #ddd;
-    }
-    
-    .autocomplete-items div:hover {
-      background-color: #e9e9e9;
-    }
-    
-    .button-container {
-      margin-top: 20px;
-    }
-    
-    .nav-button {
-      display: inline-block;
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #f5f5f5;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      text-decoration: none;
-      margin-left: 10px;
-    }
-  </style>
-</head>
-<body>
-  <div class="autocomplete">
-    <input type="text" id="myInput" placeholder="Search for coffee...">
-    <div id="myDropdown" class="autocomplete-items"></div>
-  </div>
-
-  <div class="button-container">
-    <button id="goButton" class="nav-button" disabled>Go</button>
-  </div>
-
-  <script>
-    // Available prompts
-    var prompts = [
-      'Starbucks coffee',
-      'Hoshino coffee',
-      'TULLY coffee',
-      'Ogawa coffee',
-      'PRONTO coffee',
-      'Inoda coffee',
-      'Perk coffee',
-      'Saryo FUKUCHA',
-      'Nakamura Tokichi',
-      'Blue Bottle Coffee',
-      '% Arabica',
-      'Streamer Coffee Company',
-      'Cafe de Lambre',
-      'Omotesando Koffee',
-      'Bear Pond Espresso',
-      'Fuglen Tokyo',
-      'The Roastery by Nozy Coffee',
-      'Verve Coffee Roasters',
-      'Sarutahiko Coffee'
-    ];
-
-    // Get the input element
-    var input = document.getElementById("myInput");
-
-    // Create a dropdown menu for the autocomplete
-    var dropdown = document.getElementById("myDropdown");
-
-    // Get the Go button element
-    var goButton = document.getElementById("goButton");
-
-    // Function to filter prompts based on user input
-    function filterPrompts() {
-      var value = input.value.toLowerCase();
-      var filteredPrompts = prompts.filter(function(prompt) {
-        return prompt.toLowerCase().indexOf(value) > -1;
-      });
-      showDropdown(filteredPrompts);
-    }
-
-    // Function to display the dropdown with filtered prompts
-    function showDropdown(filteredPrompts) {
-      dropdown.innerHTML = "";
-      filteredPrompts.forEach(function(prompt) {
-        var option = document.createElement("div");
-        option.textContent = prompt;
-        option.addEventListener("click", function() {
-          input.value = prompt;
-          dropdown.innerHTML = "";
-          goButton.disabled = false;
-        });
-        dropdown.appendChild(option);
-      });
-    }
-
-    // Event listener for input changes
-    input.addEventListener("input", filterPrompts);
-
-    // Event listener for Go button click
-    goButton.addEventListener("click", function() {
-      var selectedPrompt = input.value.toLowerCase();
-      var websiteUrls = {
-        'starbucks coffee': 'https://www.starbucks.com',
-        'hoshino coffee': 'https://www.hoshinocoffee.com',
-        'tully coffee': 'https://www.tullys.co.jp',
-        'ogawa coffee': 'https://www.ogawacoffee.com',
-        'pronto coffee': 'https://www.prontocoffee.com',
-        'inoda coffee': 'https://www.inoda-coffee.co.jp',
-        'perk coffee': 'https://www.perkcoffee.sg',
-        'saryo fukucha': 'https://www.saryo-fukucha.jp',
-        'nakamura tokichi': 'https://www.tokichi.jp',
-        'blue bottle coffee': 'https://www.bluebottlecoffee.com',
-        '% arabica': 'https://www.arabica.coffee',
-        'streamer coffee company': 'https://streamercoffee.com',
-        'cafe de lambre': 'https://www.cafedelambre.com',
-        'omotesando koffee': 'https://www.ooo-koffee.com',
-        'bear pond espresso': 'https://www.bear-pond.com',
-        'fuglen tokyo': 'https://fuglencoffee.com',
-        'the roastery by nozy coffee': 'https://www.nozycoffee.jp',
-        'verve coffee roasters': 'https://www.vervecoffee.com',
-        'sarutahiko coffee': 'https://www.sarutahiko.co'
-      };
-
-      if (selectedPrompt in websiteUrls) {
-        var websiteUrl = websiteUrls[selectedPrompt];
-        window.location.href = websiteUrl;
-      }
-    });
-  </script>
-</body>
 </html>

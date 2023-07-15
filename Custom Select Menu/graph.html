@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<!-- The div where the chart will be shown. A width and height is required for eCharts -->
+<div id="footTrafficDay" style="width:800px; height:300px;"></div>
+
+
+<!-- eCharts is used to generate the graph -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.min.js"
+integrity="sha256-eKrx6Ly6b0Rscx/PSm52rJsvK76RJyv18Toswq+OLSs=" crossorigin="anonymous"></script>
+
+<!-- Script to get the foot traffic from the BestTime API and visualize the data using eCharts -->
+<script>
+  // Graph options
+  var option = {
+    title: {
+      text: "Today's foot traffic",
+    },
+    tooltip: {
+      show: true,
+      formatter: '{c}% vs max <br> max of the week'
+    },
+    xAxis: {
+      show: true,
+      nameTextStyle: {
+        color: "#b5b5b5"
+      },
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        show: true,
+        showMinLabel: true,
+        showMaxLabel: true,
+        interval: 3,
+        color: "#b5b5b5",
+        align: 'center'
+      },
+      data: ['6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM',
+        '7PM', '8PM', '9PM', '10PM', '11PM', '12AM', '1AM', '2AM', '3AM', '4AM', '5AM']
+    },
+    yAxis: {
+      show: true,
+      min: 0,
+      max: 100,
+      interval: 100,
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false,
+      },
+      axisLabel: {
+        show: true,
+        interval: 100,
+        showMaxLabel: true,
+        showMinLabel: false,
+        color: "#b5b5b5",
+        formatter: function (value) {
+          return value + "%";
+        }
+      },
+      splitline: {
+        show: false
+      }
+    },
+    grid: {
+      left: 40,
+      top: 30,
+      right: 0,
+      bottom: 20
+    },
+    series: [{
+      type: 'bar'
+    }]
+  };
+
+  // Preconfig chart with basic options
+  // Based on prepared DOM, initialize echarts instance
+  var chartToday = echarts.init(document.getElementById("footTrafficDay"));
+  chartToday.setOption(option);
+  chartToday.showLoading({
+    text: 'Loading data...',
+  });
+
+  function getFootTrafficData() {
+    const params = new URLSearchParams({ 
+      'api_key_private': 'pri_888e3fcd90944536b6b3cb6f106e316b',
+      'venue_name': 'Starbucks Coffee',
+      'venue_address': 'Kyoto Sando Tower'
+    });
+
+    fetch(`https://besttime.app/api/v1/forecasts?${params}`, {
+      method: 'POST'
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        chartToday.hideLoading();
+
+        if (data.status == "error") {
+          if ('message' in data) {
+            if ('api_key_private' in data.message) {
+              alert(JSON.stringify(data.message.api_key_private[0]))
+            } else {
+              alert(JSON.stringify(data.message))
+            }
+          }
+        } else {
+          var dataToday = data['analysis'][0];
+
+          chartToday.setOption({
+            title: {
+              text: "Today's foot traffic for " + data.venue_info.venue_name + " " + data.venue_info.venue_address,
+            },
+            series: [{
+              name: "Forecasted busyness",
+              clip: false,
+              type: 'bar',
+              itemStyle: {
+                color: "#7dabf4"
+              },
+              z: 0,
+              data: dataToday.day_raw
+            }]
+          });
+        }
+      })
+      .catch(console.error);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    getFootTrafficData();
+  });
+  
+  function reloadFootTrafficData() {
+    chartToday.showLoading({
+      text: 'Loading data...',
+    });
+    getFootTrafficData();
+  }
+</script>
+
+<button onclick="reloadFootTrafficData()">Foot Traffic Forecast</button>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function fetchData() {
+      const params = new URLSearchParams({ 
+        'api_key_public': 'pub_8ad74552797f497ba951fc1e963ad990',
+        'venue_id': 'ven_6f63794962317a394f38765241574149384b71505231394a496843',
+        'day_step': 0,
+        'hour_step': 0
+      });
+
+      fetch(`https://besttime.app/api/v1/forecasts/peaks?${params}`, {
+        method: 'GET'
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          const peakMax = data["analysis"]["peak_hours"][0]["peak_max"];
+          console.log("\n\n\n")
+          console.log(peakMax);
+          // Handle the API response
+          document.getElementById('output').textContent = `Peak Max = ${peakMax}`;
+        })
+        .catch(error => {
+          // Handle any errors
+          console.error('Error:', error);
+        });
+    }
+  </script>
+</head>
+<body>
+  <button onclick="fetchData()">Fetch Data</button>
+  <div id="output"></div>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hoshino Coffee Kyoto Fushimi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e7edfe;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333333;
+      text-align: center;
+    }
+    h2 {
+      color: #333333;
+      margin-top: 30px;
+    }
+    h3 {
+      color: #666666;
+      margin-top: 20px;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    p {
+      margin: 10px 0;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #ff8243;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff6100;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Hoshino Coffee Kyoto Fushimi!</h1>
+  
+  <h2>Menu</h2>
+  <h3>Food</h3>
+  <ul>
+    <li>Japanese Style French Toast - $8.99</li>
+    <li>Hoshino Pot-Baked Curry - $10.99</li>
+    <li>Pancakes with Berries - $9.99</li>
+  </ul>
+  
+  <h3>Drinks</h3>
+  <ul>
+    <li>Hoshino Blend Coffee - $4.99</li>
+    <li>Matcha Latte - $5.99</li>
+    <li>Strawberry Smoothie - $6.49</li>
+  </ul>
+  
+  <h3>Specialties</h3>
+  <ul>
+    <li>Hand-Dripped Coffee - $5.99</li>
+    <li>Japanese Green Tea - $4.49</li>
+    <li>Mixed Berry Parfait - $8.99</li>
+  </ul>
+  
+  <h2>Seat Availability</h2>
+  <p>Our Hoshino Coffee Kyoto Fushimi location offers a comfortable seating area for customers.</p>
+  
+  <h2>Convenience Features</h2>
+  <ul>
+    <li>Free Wi-Fi</li>
+    <li>Outdoor Terrace</li>
+    <li>Wheelchair Accessible</li>
+  </ul>
+  
+  <h2>Location</h2>
+  <p>Fushimi Ward, Kyoto, 612-0856, Japan</p>
+  <p>Phone: +81 75-623-0313</p>
+   
+<!-- The div where the chart will be shown. A width and height is required for eCharts -->
+<div id="footTrafficDay" style="width:560px; height:210px;"></div>
+
+<!-- eCharts is used to generate the graph -->
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.7.0/dist/echarts.min.js"
+integrity="sha256-eKrx6Ly6b0Rscx/PSm52rJsvK76RJyv18Toswq+OLSs=" crossorigin="anonymous"></script>
+
+<!-- Script to get the foot traffic from the BestTime API and visualize the data using eCharts -->
+<script>
+  // Graph options
+  var option = {
+    title: {
+      text: "Today's foot traffic",
+      fontSize: 14,
+    },
+    tooltip: {
+      show: true,
+      formatter: '{c}% vs max <br> max of the week'
+    },
+    xAxis: {
+      show: true,
+      nameTextStyle: {
+        color: "#b5b5b5",
+        fontSize: 10,
+      },
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        show: true,
+        showMinLabel: true,
+        showMaxLabel: true,
+        interval: 3,
+        color: "#b5b5b5",
+        align: 'center',
+        fontSize: 10,
+      },
+      data: ['6AM', '7AM', '8AM', '9AM', '10AM', '11AM', '12PM', '1PM', '2PM', '3PM', '4PM', '5PM', '6PM',
+        '7PM', '8PM', '9PM', '10PM', '11PM', '12AM', '1AM', '2AM', '3AM', '4AM', '5AM']
+    },
+    yAxis: {
+      show: true,
+      min: 0,
+      max: 100,
+      interval: 100,
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false,
+      },
+      axisLabel: {
+        show: true,
+        interval: 100,
+        showMaxLabel: true,
+        showMinLabel: false,
+        color: "#b5b5b5",
+        formatter: function (value) {
+          return value + "%";
+        },
+        fontSize: 10,
+      },
+      splitline: {
+        show: false
+      }
+    },
+    grid: {
+      left: 28,
+      top: 21,
+      right: 0,
+      bottom: 14
+    },
+    series: [{
+      type: 'bar'
+    }]
+  };
+
+  // Preconfig chart with basic options
+  // Based on prepared DOM, initialize echarts instance
+  var chartToday = echarts.init(document.getElementById("footTrafficDay"));
+  chartToday.setOption(option);
+  chartToday.showLoading({
+    text: 'Loading data...',
+  });
+
+  function getFootTrafficData() {
+    const params = new URLSearchParams({ 
+      'api_key_private': 'pri_888e3fcd90944536b6b3cb6f106e316b',
+      'venue_name': 'Hoshino Coffee Kyoto Fushimi',
+      'venue_address': '星乃珈琲店京都伏見店'
+    });
+
+    fetch(`https://besttime.app/api/v1/forecasts?${params}`, {
+      method: 'POST'
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        chartToday.hideLoading();
+
+        if (data.status == "error") {
+          if ('message' in data) {
+            if ('api_key_private' in data.message) {
+              alert(JSON.stringify(data.message.api_key_private[0]))
+            } else {
+              alert(JSON.stringify(data.message))
+            }
+          }
+        } else {
+          var dataToday = data['analysis'][0];
+
+          chartToday.setOption({
+            title: {
+              text: "Today's foot traffic for " + data.venue_info.venue_name + " " + data.venue_info.venue_address,
+              fontSize: 12,
+            },
+            series: [{
+              name: "Forecasted busyness",
+              clip: false,
+              type: 'bar',
+              itemStyle: {
+                color: "#7dabf4"
+              },
+              z: 0,
+              data: dataToday.day_raw
+            }]
+          });
+        }
+      })
+      .catch(console.error);
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    getFootTrafficData();
+  });
+  
+  function reloadFootTrafficData() {
+    chartToday.showLoading({
+      text: 'Loading data...',
+    });
+    getFootTrafficData();
+  }
+</script>
+
+  <div style="text-align: center;">
+    <a href="https://maps.google.com/maps?q=Hoshino+Coffee+Kyoto+Fushimi" target="_blank">
+        <button>Show on Google Maps</button>
+    </a>
+  </div>
+</body>
+</html>
