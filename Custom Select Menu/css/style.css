@@ -298,3 +298,13 @@ body {
     content: "\2605";
     color: gold;
   }
+  .smiley-space {
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 50%;
+  }
+  

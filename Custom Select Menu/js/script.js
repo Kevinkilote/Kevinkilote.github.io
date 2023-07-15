@@ -129,9 +129,9 @@ var prompts = [
     var selectedPrompt = input.value.toLowerCase();
     var websiteUrls = {
       'starbucks coffee': 'https://kevinkilote.github.io/Custom%20Select%20Menu/starbucks.html',
-      'hoshino coffee': 'https://www.hoshinocoffee.com',
+      'hoshino coffee': 'https://kevinkilote.github.io/Custom%20Select%20Menu/hoshino.html',
       'tully coffee': 'https://www.tullys.co.jp',
-      'ogawa coffee': 'https://www.ogawacoffee.com',
+      'ogawa coffee': 'https://kevinkilote.github.io/Custom%20Select%20Menu/ogawa.html',
       'pronto coffee': 'https://www.prontocoffee.com',
       'inoda coffee': 'https://www.inoda-coffee.co.jp',
       'perk coffee': 'https://www.perkcoffee.sg',
