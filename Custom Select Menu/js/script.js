@@ -154,3 +154,35 @@ var prompts = [
       window.location.href = websiteUrl;
     }
   });
+
+  function fetchData(venue_id, outputId) {
+    const params = new URLSearchParams({ 
+      'api_key_public': 'pub_4bdf560d3ed14fdc9e37e2da268636be',
+      'venue_id': venue_id,
+      'day_step': 0,
+      'hour_step': 0
+    });
+
+    fetch(`https://besttime.app/api/v1/forecasts/peaks?${params}`, {
+      method: 'GET'
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const peakMax = data["analysis"]["peak_hours"][0]["peak_max_12h"];
+        console.log("\n\n\n")
+        console.log(peakMax);
+        // Handle the API response
+        document.getElementById(outputId).textContent = `Peak Time : ${peakMax}`;
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error('Error:', error);
+      });
+  }
+
+  window.onload = function() {
+    fetchData('ven_6f63794962317a394f38765241574149384b71505231394a496843', 'output1');
+    fetchData('ven_6b7444435a7154597146435241574149387144747038394a496843', 'output2');
+    fetchData('ven_455158436477466d566f7752415741464d4732706459714a496843', 'output3');
+  };

@@ -21,6 +21,7 @@
         <p>Description: This is a cozy cafe with a rustic atmosphere, serving a variety of hot and cold beverages.</p>
         <p class="keywords">Keywords: Wi-Fi, Popular, Charging Sockets, Able to Study, Sofa, Peaceful</p>
         <p class="availability">Open: Yes <br> Max Stay Time: 3 Hours (Weekends) </p>
+        <div id="output1"></div>
         <a href="starbucks.html" class="visit-button">Visit</a>
       </div>
       <div class="smiley-space" style="background-image: url('redsmile.jpg');"></div>
@@ -36,8 +37,9 @@
         </div>
         <h2>Ogawa Coffee Kyoto Station Central Gate </h2>
         <p>Description: A modern cafe with a minimalist design, offering a wide selection of specialty coffees and pastries.</p>
-        <p class="keywords">Keywords: Wi-Fi, Sofa, Peaceful, desserts</p>
+        <p class="keywords">Keywords: Wi-Fi, Popular, Charging Sockets, Able to Study, Sofa, Peaceful</p>
         <p class="availability">Open: Yes <br> Max Stay Time: 3 Hours (Weekends) </p>
+        <div id="output2"></div>
         <a href="ogawa.html" class="visit-button">Visit</a>
       </div>
       <div class="smiley-space" style="background-image: url('greensmile.jpeg');"></div>
@@ -52,8 +54,9 @@
         </div>
         <h2>Hoshino Coffee Asty Kyoto </h2>
         <p>Description: This cafe is known for its relaxed atmosphere and homemade desserts. Perfect for a sweet indulgence.</p>
-        <p class="keywords">Keywords: Wi-Fi, Charging Sockets, desserts</p>
+        <p class="keywords">Keywords: Wi-Fi, Popular, Charging Sockets, Able to Study, Sofa, Peaceful</p>
         <p class="availability">Open: Yes <br> Max Stay Time: 2 Hours </p>
+        <div id="output3"></div>
         <a href="hoshino.html" class="visit-button">Visit</a>
       </div>
       <div class="smiley-space" style="background-image: url('yellowsmile.jpg');"></div>
@@ -69,6 +72,40 @@
       } else {
         button.classList.add("liked");
       }
-    });</script>
+    });
+    
+    
+  function fetchData(venue_id, outputId) {
+    const params = new URLSearchParams({ 
+      'api_key_public': 'pub_4bdf560d3ed14fdc9e37e2da268636be',
+      'venue_id': venue_id,
+      'day_step': 0,
+      'hour_step': 0
+    });
+
+    fetch(`https://besttime.app/api/v1/forecasts/peaks?${params}`, {
+      method: 'GET'
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        const peakMax = data["analysis"]["peak_hours"][0]["peak_max_12h"];
+        console.log("\n\n\n")
+        console.log(peakMax);
+        // Handle the API response
+        document.getElementById(outputId).textContent = `Peak Time : ${peakMax}`;
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error('Error:', error);
+      });
+  }
+
+  window.onload = function() {
+    fetchData('ven_6f63794962317a394f38765241574149384b71505231394a496843', 'output1');
+    fetchData('ven_6b7444435a7154597146435241574149387144747038394a496843', 'output2');
+    fetchData('ven_455158436477466d566f7752415741464d4732706459714a496843', 'output3');
+  };
+</script>
 </body>
 </html>
